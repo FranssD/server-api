@@ -1,4 +1,6 @@
 const userApi = require('./api/userApi')
+const routesApi = require('./api/routesApi')
+
 const fs = require('fs')
 const path = require('path')
 const bodyParser = require('body-parser')
@@ -13,7 +15,8 @@ app.use(bodyParser.urlencoded({
 }))
 
 // 后端api路由----auth
-app.use(userApi, cors({
+//userApi,routesApi
+app.use(userApi,routesApi, cors({
 	origin: ['http://127.0.0.1:5500'], // 指定接收的地址
 	methods: ['GET', 'POST'], // 指定接收的请求类型
 	alloweHeaders: ['Content-Type', 'Authorization'] // 指定header

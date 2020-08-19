@@ -9,6 +9,15 @@ let sqlMap = {
 			selectPwd: "select * from user where pwd =", // 查询 selectPwd
 			selectAndPwd: "and pwd =" // 查询username 和 selectAndPwd
 		}
+	},
+	//路由
+	routes: {
+		GetList: "select * from routes",
+		auth: {
+			selectStatus: "select * from routes_children where status =" //查询下面的子集
+		}
 	}
 };
 module.exports = sqlMap;
+
+

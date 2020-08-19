@@ -27,7 +27,7 @@ let jsonWrite = function (res, ret) {
 	}
 }
 // 拉取所有用户
-router.get('/admin/auth/GetList', (req, res) => {
+router.get('/admin/user/GetList', (req, res) => {
 	let sqlGetList = $sql.user.GetList
 	conn.query(sqlGetList, function (err, result) {
 		if (err) {
@@ -46,7 +46,7 @@ router.get('/admin/auth/GetList', (req, res) => {
 })
 
 // 登录
-router.post('/admin/auth/login', (req, res) => {
+router.post('/admin/user/login', (req, res) => {
 	let sqlSelectName = $sql.user.auth.selectName
 	let sqlSelectPwd = $sql.user.auth.selectAndPwd
 	let RowData = req.body.params
@@ -102,7 +102,7 @@ router.post('/admin/auth/login', (req, res) => {
 	}
 })
 // 增加用户接口
-router.post('/admin/auth/addUser', (req, res) => {
+router.post('/admin/user/addUser', (req, res) => {
 	let sqlAdd = $sql.user.add
 	let RowData = req.body.params
 	let sqlSelectName = $sql.user.auth.selectName
