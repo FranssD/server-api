@@ -24,12 +24,12 @@ let jsonWrite = function (res, ret) {
 }
 // 拉取routes
 router.get('/admin/routes/GetList', (req, res) => {
-    let sqlGetList = $sql.routes.GetList
-    let sqlSelectStatus = $sql.routes.auth.selectStatus
+	let sqlGetList = $sql.routes.GetList,
+		sqlSelectStatus = $sql.routes.auth.selectStatus
 	conn.query(sqlGetList, function (err, result) {
-        //console.log(result)
+		//console.log(result)
 		if (err) {
-            console.log(err, 'err');
+			console.log(err, 'err');
 		}
 		if (result[0] === undefined) {
 			res.json({
@@ -38,29 +38,43 @@ router.get('/admin/routes/GetList', (req, res) => {
 				msg: '操作成功'
 			})
 		} else {
-            let dataString = JSON.parse(JSON.stringify(result));
-            for (const i in dataString) {
-                let status=`${sqlSelectStatus} "${dataString[i].status}"`
-                //console.log(status)
-                conn.query(status, function (errs, results) {
-                    if (errs) {
-						console.log(errs, 'err');
-                    }
-                    console.log(results)
-                    //console.log(results)
-                    // for (const a in results) {
-                    //     //console.log(results[a],'--')
-                    //     dataString[i].children=results[a]
-                    // }
-                    // console.log(dataString,'dataString')
-                    // jsonWrite(res, element)
-                })
-                
-                //jsonWrite(res, element)
-               
-            };
-            
-			//jsonWrite(res, result)
+			let dataString = JSON.parse(JSON.stringify(result)),
+				data = ''
+			console.log(dataString)
+			console.log('************')
+
+			function childrenFor(dataString) {
+				return dataString.forEach(function (data) {
+					console.log(data, 1)
+					status = `${sqlSelectStatus} "${data.status}"`
+					conn.query(status, function (errs, results) {
+						console.log(results)
+					})
+				})
+			}
+			async function childrenObj(dataString) {
+				const v = await childrenFor(dataString)
+				console.log(v,2)
+			}
+			childrenObj(dataString)
+			// for (let i in dataString) {
+			// 	let status = `${sqlSelectStatus} "${dataString[i].status}"`
+			// 	conn.query(status, function (errs, results) {
+			// 		if (errs) {
+			// 			console.log(errs, 'err');
+			// 		}
+			// 		let dataStringChildren = JSON.parse(JSON.stringify(results));
+			// 		dataString[i].children = dataStringChildren
+			// 		//dataString.children[i]=1
+			// 		//console.log(dataString)
+			// 		data = dataString
+			// 		console.log(data, '3')
+			// 	})
+			// 	console.log(data, '2')
+			// };
+			//console.log(data, '1')
+			//jsonWrite(res, dataString)
+			//
 		}
 	})
 })
