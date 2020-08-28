@@ -25,7 +25,6 @@ let jsonWrite = function (res, ret) {
 }
 // 拉取routes
 router.get('/admin/routes/GetList', (req, res) => {
-	console.log(req.query.grade)
 	let sqlGetList = $sql.routes.GetList,
 		sqlselectGrade = $sql.routes.auth.selectGrade,
 		sqlSelectStatusChild = $sql.routes.auth.selectStatusChild,
@@ -35,7 +34,7 @@ router.get('/admin/routes/GetList', (req, res) => {
 		authRoundGrade = `${sqlGetList}${sqlselectGrade}"${reqGrade}"`
 	}
 	conn.query(authRoundGrade, function (err, result) {
-		console.log(result)
+
 		if (err) {
 			console.log(err, 'err');
 		}
@@ -47,12 +46,26 @@ router.get('/admin/routes/GetList', (req, res) => {
 			})
 		} else {
 			let dataString = JSON.parse(JSON.stringify(result)),
-				data = ''
+				data = '';
+			dataString.forEach(element => {
+				element.meta = {
+					title: element.metaTitle,
+					isLogin: element.metaIsLogin,
+				}
+			});
+			console.log(dataString)
 			let terraceCount = []
 			async.map(dataString, function (item, callback) {
 				let status = `${sqlSelectStatusChild} "${item.status}"`
 				conn.query(status, function (errs, results) {
-					item.children = JSON.parse(JSON.stringify(results))
+					let dataChilString = JSON.parse(JSON.stringify(results))
+					dataChilString.forEach(element => {
+						element.meta = {
+							title: element.metaTitle,
+							isLogin: element.metaIsLogin,
+						}
+					});
+					item.children = dataChilString
 					terraceCount.push(item)
 					callback(null, terraceCount);
 				})

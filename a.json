@@ -1,18 +1,63 @@
 {
     "data": [{
+        "path": "/setUp",
+        "name": "setUp",
+        "status": "setUp",
+        "metaTitle": "true",
+        "metaIsLogin": "配置",
+        "component": "Layout",
+        "meta": {
+            "title": "true",
+            "isLogin": "配置"
+        },
+        "grade": 0,
+        "children": [{
+            "path": "userManagement",
+            "status": "setUp",
+            "name": "userManagement",
+            "metaTitle": "用户管理",
+            "metaIsLogin": "true",
+            "component": "userManagement/index",
+            "meta": {
+                "title": "用户管理",
+                "isLogin": "true"
+            }
+        }, {
+            "path": "changePassword",
+            "status": "setUp",
+            "name": "ChangePassword",
+            "metaTitle": "修改密码",
+            "metaIsLogin": "true",
+            "component": "changePassword/index",
+            "meta": {
+                "title": "修改密码",
+                "isLogin": "true"
+            }
+        }]
+    }, {
         "path": "/form",
+        "name": "form",
         "status": "form",
         "metaTitle": "true",
         "metaIsLogin": "表单",
         "component": "Layout",
+        "meta": {
+            "title": "true",
+            "isLogin": "表单"
+        },
+        "grade": 1,
         "children": [{
+            "path": "index",
             "status": "form",
-            "path": "/index",
+            "name": "Form",
             "metaTitle": "表单",
             "metaIsLogin": "true",
-            "component": "form/index"
-        }],
-        "grade": 1
+            "component": "form/index",
+            "meta": {
+                "title": "表单",
+                "isLogin": "true"
+            }
+        }]
     }],
     "code": true,
     "msg": "查询成功"
