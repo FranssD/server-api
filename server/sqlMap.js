@@ -12,9 +12,10 @@ let sqlMap = {
 	},
 	//路由
 	routes: {
-		GetList: "select * from routes",
+		GetList: "select * from routes ",//查询路由权限
 		auth: {
-			selectStatus: "select * from routes_children where status =" //查询下面的子集
+			selectStatusChild: "select * from routes_children where status =", //查询下面的子集
+			selectGrade: "where grade ="
 		}
 	}
 };

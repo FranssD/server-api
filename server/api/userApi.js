@@ -52,6 +52,7 @@ router.post('/admin/user/login', (req, res) => {
 	let RowData = req.body.params
 	let authName = `${sqlSelectName}"${RowData.username}"`
 	let auth = `${sqlSelectName}"${RowData.username}"${sqlSelectPwd}"${RowData.pwd}"`
+	console.log(req.body)
 	if ((RowData.username == '') || (RowData.pwd == '')) {
 		res.json({
 			code: false,
@@ -72,7 +73,6 @@ router.post('/admin/user/login', (req, res) => {
 					if (errs) {
 						console.log(errs, 'err');
 					}
-					console.log(results[0])
 					if (results[0] == undefined) {
 						res.json({
 							code: false,

@@ -9,6 +9,8 @@ const app = express()
 const cors = require('cors')
 
 
+
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
 	extended: false
@@ -25,3 +27,4 @@ app.use(userApi,routesApi, cors({
 // 监听端口
 app.listen(5500)
 console.log('success listen at port:5500......')
+

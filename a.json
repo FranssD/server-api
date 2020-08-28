@@ -1,0 +1,19 @@
+{
+    "data": [{
+        "path": "/form",
+        "status": "form",
+        "metaTitle": "true",
+        "metaIsLogin": "表单",
+        "component": "Layout",
+        "children": [{
+            "status": "form",
+            "path": "/index",
+            "metaTitle": "表单",
+            "metaIsLogin": "true",
+            "component": "form/index"
+        }],
+        "grade": 1
+    }],
+    "code": true,
+    "msg": "查询成功"
+}

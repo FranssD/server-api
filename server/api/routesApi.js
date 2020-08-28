@@ -25,10 +25,17 @@ let jsonWrite = function (res, ret) {
 }
 // 拉取routes
 router.get('/admin/routes/GetList', (req, res) => {
+	console.log(req.query.grade)
 	let sqlGetList = $sql.routes.GetList,
-		sqlSelectStatus = $sql.routes.auth.selectStatus
-	conn.query(sqlGetList, function (err, result) {
-		//console.log(result)
+		sqlselectGrade = $sql.routes.auth.selectGrade,
+		sqlSelectStatusChild = $sql.routes.auth.selectStatusChild,
+		reqGrade = req.query.grade,
+		authRoundGrade = sqlGetList;
+	if (reqGrade != 0 && reqGrade != undefined) {
+		authRoundGrade = `${sqlGetList}${sqlselectGrade}"${reqGrade}"`
+	}
+	conn.query(authRoundGrade, function (err, result) {
+		console.log(result)
 		if (err) {
 			console.log(err, 'err');
 		}
@@ -41,10 +48,9 @@ router.get('/admin/routes/GetList', (req, res) => {
 		} else {
 			let dataString = JSON.parse(JSON.stringify(result)),
 				data = ''
-			console.log('************')
 			let terraceCount = []
 			async.map(dataString, function (item, callback) {
-				let status = `${sqlSelectStatus} "${item.status}"`
+				let status = `${sqlSelectStatusChild} "${item.status}"`
 				conn.query(status, function (errs, results) {
 					item.children = JSON.parse(JSON.stringify(results))
 					terraceCount.push(item)
@@ -56,5 +62,4 @@ router.get('/admin/routes/GetList', (req, res) => {
 		}
 	})
 })
-
 module.exports = router
